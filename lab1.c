@@ -26,26 +26,35 @@ void raising_to_power(float base, int power){
     printf("y = %f\n", y);
 }
 
-//надо подумать над функцией, не доделана
-void cosinus(int x){
-    int p = 1;
-    int z = 1;
-    float cos_x;
-    while (cos_x<0.0001){
-        int numerator = pow(x, p);
 
-        int factorial = 2 * z;
-        int denuminator = 1;
-        for (int i = 1; i<=factorial; i++){
-            int denuminator *= i;     
+void cosinus(double x){
+    double eps=0.0001;
+    double phi = 3.14159265359;
+
+    double original_x = x; 
+    x = fmod(x, 2 * phi);
+    double sum_row = 1.0;
+    double term = 1.0;
+    int sign = -1;
+    int p = 2;
+
+    while (fabs(term)>eps){
+        double numerator = pow(x, p);
+
+        double factorial = 1;
+        for (int i = 1; i <= p; i++) {
+            factorial *= i;
         }
 
-        float cos_x = numerator / denuminator;
-        p++;
-        z++; 
-    }
+        term = sign * numerator / factorial;
 
-    printf("cos(%d) = %f", x, cos_x);
+        sum_row += term;
+
+        sign = -sign;
+
+        p+=2;
+    }
+    printf("cos(%.0f) = %.6f\n", original_x, sum_row);
     
 
 }
