@@ -26,6 +26,7 @@ void clav(){
     int num;
     scanf("%d", &num);
     if(num==0){
+        printf("Положительные числа:\n");
         return;
     }
 
@@ -35,6 +36,21 @@ void clav(){
         printf("%d\n", num);
     }
 
+
+}
+
+void ten_for_two(int number){
+    if (number==0){
+        printf("Переведенное число в двоичную систему:\n");
+        return;
+    }
+
+    int ostat = number%2;
+
+    ten_for_two(number/2);
+
+    printf("%d\n", ostat);
+
 }
 
 
@@ -43,10 +59,16 @@ int main(){
     printf("Вводите целые числа любые. Если захотите прекратить, нажмите 0:\n");
     clav();
 
+    printf("\n");
     printf("2-ая задача:\n");
     int arr[N]={1, -1, 2 ,3, -5};
     output(N, arr);
 
-    printf("3-тья задача");
+    printf("\n");
+    printf("3-тья задача\n");
+    int number_ten;
+    printf("Введите число для перевода в двоичную систему:\n");
+    scanf("%d", &number_ten);
+    ten_for_two(number_ten);
 
 }
