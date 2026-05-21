@@ -4,7 +4,7 @@
 
 //сортировка в убывании
 void sort_decrease(int arr[], int n){
-    for(int i = 0; i<n-1; i++){
+    for(int i = 0; i<n; i++){
         for(int j = 0; j<n; j++){
             if (arr[j] < arr[i]) {
                 int temp = arr[i];
@@ -18,17 +18,18 @@ void sort_decrease(int arr[], int n){
 //перебор (поиск элемента)
 void enumeration(int massive[], int size){
     printf("Поиск перебором:\n");
+    int iterations = 0;
     int search = 3;
-    int flag = 0;
     int copy_search = 0;
     int cout = 0;
-    while(flag!=1){
-        for (int i = 0; i<size-1; i++){
-            if(search == massive[i]){
-                flag = 1;
-                copy_search = massive[i];
-                cout+=1;
-            }
+    int flag = 0;
+    
+    for (int i = 0; i<size; i++){
+        iterations++; 
+        if(search == massive[i]){
+            flag = 1;
+            copy_search = massive[i];
+            cout+=1;
         }
     }
 
@@ -39,31 +40,40 @@ void enumeration(int massive[], int size){
     if(flag!=1){
         printf("Элемент не найден\n");
     }
+
+    printf("Количество итераций перебора: %d\n\n", iterations);
 }
 
 //бинарный поиск
-void binary_sort(int massive[], int size){
+void binary_search(int massive[], int size){
     printf("Бинарный поиск:\n");
     int search = 5;
     int copy_search = 0;
-    int midle = size / 2;
     int flag = 0;
+    int iterations = 0;
 
-    while(flag!=1){
-        if(search > massive[midle]){
-            
+    int midle;
+    int left = 0;
+    int right = size - 1;
+    
 
-        }
-
-        if(search < massive[midle]){
-            
-
-        }
+    while(left <= right){
+        iterations++; 
+        midle = left + (right - left) / 2;
 
         if (search == massive[midle]){
             flag = 1;
             copy_search = massive[midle];
+            break;
         }
+        
+        if(search > massive[midle]){
+            right = midle - 1;
+        }
+        else if(search < massive[midle]){ 
+            left = midle + 1;
+        }
+
     }
 
     if(flag==1){
@@ -73,6 +83,9 @@ void binary_sort(int massive[], int size){
     if(flag!=1){
         printf("Элемент не найден\n");
     }
+
+    printf("Количество итераций бинарного поиска: %d\n\n", iterations);
+
 }
 
 int main(){
@@ -91,35 +104,36 @@ int main(){
     }
 
     printf("Исходный массив из 100 элементов:\n");
-    for(int i = 0; i < n-1; i++){
+    for(int i = 0; i < n; i++){
         printf("%d ", arr_100[i]);
-    }
-    printf("\n");
-
-    printf("Исходный массив из 1000 элементов:\n");
-    for(int i = 0; i < N-1; i++){
-        printf("%d ", arr_1000[i]);
     }
     printf("\n");
 
     sort_decrease(arr_100, n);
     printf("Упорядоченный массив из 100 элементов:\n");
-    for(int i = 0; i < n-1; i++){
+    for(int i = 0; i < n; i++){
         printf("%d ", arr_100[i]);
     }
     printf("\n");
 
     enumeration(arr_100, n);
+    binary_search(arr_100, n);
+
+    printf("Исходный массив из 1000 элементов:\n");
+    for(int i = 0; i < N; i++){
+        printf("%d ", arr_1000[i]);
+    }
+    printf("\n");
 
     sort_decrease(arr_1000, N);
     printf("Упорядоченный массив из 1000 элементов:\n");
-    for(int i = 0; i < n-1; i++){
+    for(int i = 0; i < N; i++){
         printf("%d ", arr_1000[i]);
     }
     printf("\n");
 
     enumeration(arr_1000, N);
-    binary_sort(arr_100, n);
+    binary_search(arr_1000, N);
 
-
+    return 0;
 }
