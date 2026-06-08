@@ -152,8 +152,35 @@ void deletePoorStudent(Stud*& head1){
     }
 }
 
+void printListDouble(Stud* head1){
+    if(head1 == nullptr){
+        std::cout << "Список пуст, нет студентов\n";
+        return;
+    }
+
+    Stud* curr = head1;
+
+    while(curr != nullptr){
+        std::cout << curr -> surname << " оценки: ";
+        
+        for(int i = 0; i < 4; i++){
+            std::cout << curr -> grades[i] << " ";
+        }
+
+        std::cout<<"\n";
+
+        curr = curr -> next;
+
+    }
+
+    std::cout << "--------------------------------\n";
+
+
+}
+
 int main(){
     //1-ое задание
+    std::cout << "\nЗАДАНИЕ №1\n";
     Student* head = nullptr;
     insertStudent(head, "Драгун", 5, 5, 5, 5);
     insertStudent(head, "Помогаева", 2, 2, 3, 2);
@@ -164,9 +191,16 @@ int main(){
     print_List(head);
 
     //2-ое задание
+    std::cout << "\nЗАДАНИЕ №2\n";
     Stud* head1 = nullptr;
     addStudent(head1, "Бубкин", 5, 5, 5, 5);
     addStudent(head1, "Трубкин", 2, 2, 3, 2);
     addStudent(head1, "Валынкина", 3, 2, 2, 3);
     addStudent(head1, "Прохоровна", 5, 4, 5, 5);
+
+    std::cout << "\n----------СПИСОК ДО----------\n";
+    printListDouble(head1);
+    deletePoorStudent(head1);
+    std::cout << "\n----------СПИСОК ПОСЛЕ----------\n";
+    printListDouble(head1);
 }
