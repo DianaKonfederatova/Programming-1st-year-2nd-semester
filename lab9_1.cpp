@@ -7,55 +7,61 @@ struct Student {
     Student* next = nullptr; 
 };
 
-void add_student(Student*& head, std::string surname, 
-    int gr1, int gr2, int gr3, int gr4){
-        Student* newStudent = new Student;
-        newStudent->surname = surname;
-        newStudent->grades[0] = gr1;
-        newStudent->grades[1] = gr2;
-        newStudent->grades[2] = gr3;
-        newStudent->grades[3] = gr4;
-        newStudent->next = head;
+void insertStudent(Student*& head, 
+    std::string surname, int g1, int g2, int g3, int g4){
+        Sudent* newStudent = new Student;
+        newStudent -> name = surname;
+        newStudent -> grades[0] = g1;
+        newStudent -> grades[1] = g2;
+        newStudent -> grades[2] = g3;
+        newStudent -> grades[3] = g4;
+        newStudent -> next = head;
         head = newStudent;
 }
 
-void print_students(Student* head){
-   
-    Student* temp = head;
-
-    while(temp != nullptr){
-       std::cout << temp -> surname << " ";
-       
-       for(int i = 0; i < 4; i++){
-           std::cout << temp -> grades[i] << " ";
-       }
-
-       std::cout << "\n";
-       temp = temp -> next;
-    }
-
+void sort_by_surname(Student*& head){
+    if(head == nullptr || head -> next == nullptr) return;
     
+    int swap = 1;
+
+    while(swap != 0){
+        swap = 0;
+
+        Student* prev = nullptr;
+        Student* curr = head;
+
+        while(curr != 0 && curr -> next !=nullptr){
+            Student* second = curr -> next;
+
+            if(curr -> surname > second -> surname){
+                curr -> next = second -> next;
+                second -> next = curr;
+
+                if(prev == nullptr){
+                    head = second;
+                }else{
+                    prev -> next = second;
+                }
+
+                swap = 1;
+
+                prev = curr;
+            }else{
+                prev = curr;
+                curr = curr -> next;
+            }
+        }
+    }
 }
 
-void sort_student(Student*& head){
-    if(head == nullptr){
-        return;
-    }
-
-    
-}
 
 int main(){
-
     Student* head = nullptr;
+    insertStudent(head, "Драгун", 5, 5, 5, 5);
+    insertStudent(head, "Помогаева", 2, 2, 3, 2);
+    insertStudent(head, "Бровченко", 3, 4, 5, 3);
+    insertStudent(head, "Кулибяков", 4, 5, 5, 5);
+
     
-    add_student(head, "Драгун", 5, 5, 5, 5);
-    add_student(head, "Белобрысов", 3, 2, 5, 5);
-    add_student(head, "Кардамонов", 4, 5, 4, 5);
-    add_student(head, "Лишаева", 5, 2, 2, 2);
-
-    std::cout << "Список студентов:" << std::endl;
-    print_students(head);
-
-    return 0;
+    
 }
