@@ -1,12 +1,21 @@
 #include <iostream>
 #include <string>
 
+//структура узла для 1-ого задания
 struct Student {
     std::string surname;
     int grades[4];
     Student* next = nullptr; 
 };
 
+struct Stud {
+    std::string surname;
+    int grades[4];
+    Stud* next = nullptr; 
+    Stud* prev = nullptr; 
+};
+
+//1-ое задние
 void insertStudent(Student*& head, 
     std::string surname, int g1, int g2, int g3, int g4){
         Student* newStudent = new Student;
@@ -79,8 +88,14 @@ void print_List(Student* head){
     std::cout << "--------------------------------\n";
 }
 
+//2-ое задание
+void addStudent(){
+
+}
+
 
 int main(){
+    //1-ое задание
     Student* head = nullptr;
     insertStudent(head, "Драгун", 5, 5, 5, 5);
     insertStudent(head, "Помогаева", 2, 2, 3, 2);
@@ -89,4 +104,6 @@ int main(){
 
     sort_by_surname(head);
     print_List(head);
+
+    //2-ое задание
 }
