@@ -115,6 +115,25 @@ bool poor_student_search(Stud* student){
     return false;
 }
 
+void deleteStudent(Stud*& head1, Stud* curr){
+    if (curr == nullptr){
+        return;
+    }
+
+    if(curr->prev == nullptr){
+        head1 = curr -> next;
+    }else{
+        curr -> prev -> next = curr -> next;
+    }
+
+    if (curr -> next != nullptr){
+        curr -> next -> prev = curr -> prev;
+
+    }
+
+    delete curr;
+}
+
 void deletePoorStudent(Stud*& head1){
     if (head1 == nullptr){
         return;
@@ -124,11 +143,13 @@ void deletePoorStudent(Stud*& head1){
 
     while (curr != nullptr){
         Stud* nextStud = curr -> next;
-        bool flag = poor_student_search(curr);
-        if(flag == )
 
+        if(poor_student_search(curr)){
+            deleteStudent(head1, curr);
+        }
+
+        curr = nextStud;
     }
-
 }
 
 int main(){
