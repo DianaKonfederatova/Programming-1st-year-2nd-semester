@@ -9,8 +9,8 @@ struct Student {
 
 void insertStudent(Student*& head, 
     std::string surname, int g1, int g2, int g3, int g4){
-        Sudent* newStudent = new Student;
-        newStudent -> name = surname;
+        Student* newStudent = new Student;
+        newStudent -> surname = surname;
         newStudent -> grades[0] = g1;
         newStudent -> grades[1] = g2;
         newStudent -> grades[2] = g3;
@@ -54,6 +54,31 @@ void sort_by_surname(Student*& head){
     }
 }
 
+void print_List(Student* head){
+    if(head == nullptr){
+        std::cout << "Список пуст, нет студентов\n";
+        return;
+    }
+
+    std::cout << "--------СПИСОК СТУДЕНТОВ--------\n";
+    Student* curr = head;
+
+    while(curr != nullptr){
+        std::cout << curr -> surname << " оценки: ";
+        
+        for(int i = 0; i < 4; i++){
+            std::cout << curr -> grades[i] << " ";
+        }
+
+        std::cout<<"\n";
+
+        curr = curr -> next;
+
+    }
+
+    std::cout << "--------------------------------\n";
+}
+
 
 int main(){
     Student* head = nullptr;
@@ -62,6 +87,6 @@ int main(){
     insertStudent(head, "Бровченко", 3, 4, 5, 3);
     insertStudent(head, "Кулибяков", 4, 5, 5, 5);
 
-    
-    
+    sort_by_surname(head);
+    print_List(head);
 }
