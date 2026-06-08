@@ -108,14 +108,28 @@ void addStudent(Stud*& head1, std::string name, int g1, int g2, int g3, int g4){
 
 bool poor_student_search(Stud* student){
     for (int i = 0; i < 4; i++){
-        if(head1 -> grades[i] < 3){
-            f = 1;
+        if(student -> grades[i] < 3){
             return true;
         }
     }
     return false;
 }
 
+void deletePoorStudent(Stud*& head1){
+    if (head1 == nullptr){
+        return;
+    }
+
+    Stud* curr = head1;
+
+    while (curr != nullptr){
+        Stud* nextStud = curr -> next;
+        bool flag = poor_student_search(curr);
+        if(flag == )
+
+    }
+
+}
 
 int main(){
     //1-ое задание
