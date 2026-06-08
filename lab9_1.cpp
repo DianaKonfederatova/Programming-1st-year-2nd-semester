@@ -106,6 +106,16 @@ void addStudent(Stud*& head1, std::string name, int g1, int g2, int g3, int g4){
     head1 = newStud;
 }
 
+bool poor_student_search(Stud* student){
+    for (int i = 0; i < 4; i++){
+        if(head1 -> grades[i] < 3){
+            f = 1;
+            return true;
+        }
+    }
+    return false;
+}
+
 
 int main(){
     //1-ое задание
