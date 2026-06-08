@@ -89,8 +89,21 @@ void print_List(Student* head){
 }
 
 //2-ое задание
-void addStudent(){
+void addStudent(Stud*& head1, std::string name, int g1, int g2, int g3, int g4){
+    Stud* newStud = new Stud;
+    newStud -> surname = name;
+    newStud -> grades[0] = g1;
+    newStud -> grades[1] = g2;
+    newStud -> grades[2] = g3;
+    newStud -> grades[3] = g4;
+    newStud -> next = head1;
+    newStud -> prev = nullptr;
 
+    if(head1 != nullptr){
+        head1 -> prev = newStud; 
+    }
+
+    head1 = newStud;
 }
 
 
@@ -106,4 +119,9 @@ int main(){
     print_List(head);
 
     //2-ое задание
+    Stud* head1 = nullptr;
+    addStudent(head1, "Бубкин", 5, 5, 5, 5);
+    addStudent(head1, "Трубкин", 2, 2, 3, 2);
+    addStudent(head1, "Валынкина", 3, 2, 2, 3);
+    addStudent(head1, "Прохоровна", 5, 4, 5, 5);
 }
