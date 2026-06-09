@@ -106,6 +106,17 @@ Student* search(Student* root, std::string target){
     
 }
 
+void free_tree(Student*& head){
+    if(head == nullptr){
+        return;
+    }
+
+    free_tree(head -> left);
+    free_tree(head -> right);
+
+    delete head;
+}
+
 int main(){
     Student* head = nullptr;
     addStudent(head, "Бубкин", 5, 5, 5, 5);
@@ -136,4 +147,9 @@ int main(){
     }else{
         std::cout << "Студент не найден\n"; 
     }
+
+    free_tree(head);
+    head = nullptr;
+    
+    return 0;
 }
