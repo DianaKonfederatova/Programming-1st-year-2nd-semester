@@ -18,9 +18,9 @@ struct Stud {
 
 //структура узла для 3-ого задания
 struct Athlete {
-    std::stirng name;
+    std::string name;
     Athlete* next;
-}
+};
 
 //1-ое задние
 void insertStudent(Student*& head, 
@@ -207,6 +207,25 @@ void add_Athlete(Athlete*& head2, std::string name){
     head2 = newAt;
 }
 
+void printTeam(Athlete* head2){
+
+    if(head2 == nullptr){
+        std::cout << "Список команды пуст!\n";
+        return;
+    }
+
+    Athlete* at = head2;
+
+    for(int i = 0; i < 5; i++){
+        std::cout << at -> name << " ";
+        std::cout<<"\n";
+        at = at -> next;
+    }
+
+    std::cout << "--------------------------------\n";
+
+}
+
 
 int main(){
     //1-ое задание
@@ -249,5 +268,11 @@ int main(){
     add_Athlete(team2, "Билан");
     add_Athlete(team2, "Полежайкин");
     add_Athlete(team2, "Ратушев");
+
+    std::cout << "\n----------ПЕРВАЯ КОМАНДА----------\n";
+    printTeam(team1);
+
+    std::cout << "\n----------ВТОРАЯ КОМАНДА----------\n";
+    printTeam(team2);
 
 }
