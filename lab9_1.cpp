@@ -8,12 +8,19 @@ struct Student {
     Student* next = nullptr; 
 };
 
+//структура узла для 2-ого задания
 struct Stud {
     std::string surname;
     int grades[4];
     Stud* next = nullptr; 
     Stud* prev = nullptr; 
 };
+
+//структура узла для 3-ого задания
+struct Athlete {
+    std::stirng name;
+    Athlete* next;
+}
 
 //1-ое задние
 void insertStudent(Student*& head, 
@@ -178,6 +185,29 @@ void printListDouble(Stud* head1){
 
 }
 
+//3-е задание
+void add_Athlete(Athlete*& head2, std::string name){
+    Athlete* newAt = new Athlete;
+    newAt -> name = name;
+
+    if(head2 == nullptr){
+        newAt -> next = newAt;
+        head2 = newAt;
+        return;
+    }
+
+    Athlete* lastAt = head2;
+
+    while(lastAt -> next != head2){
+        lastAt = lastAt -> next;
+    }
+
+    newAt -> next = head2;
+    lastAt -> next = newAt;
+    head2 = newAt;
+}
+
+
 int main(){
     //1-ое задание
     std::cout << "\nЗАДАНИЕ №1\n";
@@ -203,4 +233,21 @@ int main(){
     deletePoorStudent(head1);
     std::cout << "\n----------СПИСОК ПОСЛЕ----------\n";
     printListDouble(head1);
+
+    //3-е задание
+    std::cout << "\nЗАДАНИЕ №3\n";
+    Athlete* team1 = nullptr;
+    add_Athlete(team1, "Ковыряка");
+    add_Athlete(team1, "Заколебайкин");
+    add_Athlete(team1, "Пупкин");
+    add_Athlete(team1, "Дуршлаков");
+    add_Athlete(team1, "Гусяев");
+
+    Athlete* team2 = nullptr;
+    add_Athlete(team2, "Печкин");
+    add_Athlete(team2, "Пирожков");
+    add_Athlete(team2, "Билан");
+    add_Athlete(team2, "Полежайкин");
+    add_Athlete(team2, "Ратушев");
+
 }
