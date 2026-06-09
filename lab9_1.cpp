@@ -1,5 +1,7 @@
 #include <iostream>
 #include <string>
+#include <cstdlib> 
+#include <ctime> 
 
 //структура узла для 1-ого задания
 struct Student {
@@ -226,8 +228,39 @@ void printTeam(Athlete* head2){
 
 }
 
+void draw(Athlete* team1, Athlete* team2){
+
+    std::cout << "--------ЖЕРЕБЬЕВКА--------\n";
+
+    if(team1 == nullptr || team2 == nullptr){
+        std:: cout << "Не хватает человек на жеребьевку!\n";
+        return;
+    }
+
+    Athlete* curr1 = team1;
+    Athlete* curr2 = team2;
+
+    int jump = rand() % 5;
+
+    for(int i = 0; i<jump; i++){
+        curr2 = curr2 -> next;
+    }
+
+    for (int i = 0; i<5; i++){
+        std::cout << curr1 -> name << "a" << " против " << curr2 -> name << "a" << "\n";
+
+        curr1 = curr1 -> next;
+        curr2 = curr2 -> next;  
+
+    }
+
+    std::cout << "--------------------------------\n";
+}
+
 
 int main(){
+    srand(time(0));
+
     //1-ое задание
     std::cout << "\nЗАДАНИЕ №1\n";
     Student* head = nullptr;
@@ -256,7 +289,7 @@ int main(){
     //3-е задание
     std::cout << "\nЗАДАНИЕ №3\n";
     Athlete* team1 = nullptr;
-    add_Athlete(team1, "Ковыряка");
+    add_Athlete(team1, "Ковыряк");
     add_Athlete(team1, "Заколебайкин");
     add_Athlete(team1, "Пупкин");
     add_Athlete(team1, "Дуршлаков");
@@ -275,4 +308,7 @@ int main(){
     std::cout << "\n----------ВТОРАЯ КОМАНДА----------\n";
     printTeam(team2);
 
+    draw(team1, team2);
+
+    return 0;
 }
