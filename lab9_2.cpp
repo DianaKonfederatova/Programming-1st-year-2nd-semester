@@ -50,7 +50,31 @@ void addStudent(Student*& head, std::string surname, int g1, int g2, int g3, int
     }
 }
 
+void printList_Ascending(Student* head){
+    
+    if (head == nullptr){
+        return;
+    }
+
+    printList_Ascending(head -> left);
+    std::cout << head -> surname << " " << "оценки: "<<
+    head -> grades[0] << " " << head -> grades[1]<< " "  << 
+    head -> grades[2] << " " << head -> grades[3]<< "\n";
+    
+
+    printList_Ascending(head -> right);
+
+}
+
 int main(){
     Student* head = nullptr;
+    addStudent(head, "Бубкин", 5, 5, 5, 5);
+    addStudent(head, "Трубкин", 2, 2, 3, 2);
+    addStudent(head, "Валынкина", 3, 2, 2, 3);
+    addStudent(head, "Прохоровна", 5, 4, 5, 5);
+
+    std::cout << "--------СТУДЕНТЫ ПО ВОЗРАСТАНИЮ--------\n";
+    printList_Ascending(head);
+    std::cout << "---------------------------------------\n";
 
 }
