@@ -82,6 +82,30 @@ void printList_Ascending(Student* head){
 
 }
 
+Student* search(Student* root, std::string target){
+
+    if(root == nullptr){
+        return nullptr;
+    }
+
+    Student* curr = root;
+
+    while(curr != nullptr){
+
+        if(curr -> surname == target){
+            return curr;
+
+        }else if(curr -> surname > target){
+            curr = curr -> left;
+        }else{
+            curr = curr -> right;
+        }
+    }
+
+    return nullptr;
+    
+}
+
 int main(){
     Student* head = nullptr;
     addStudent(head, "Бубкин", 5, 5, 5, 5);
@@ -97,4 +121,19 @@ int main(){
     printList_Decrease(head);
     std::cout << "---------------------------------------\n";
 
+    Student* found = search(head, "Бубкин");
+
+    if(found != nullptr){
+        std::cout << "Студент найден: \n" << found -> surname << "\n"; 
+    }else{
+        std::cout << "Студент не найден\n"; 
+    }
+
+    Student* notfound = search(head, "Барабашкин");
+
+    if(notfound != nullptr){
+        std::cout << "Студент найден: \n" << notfound -> surname << "\n"; 
+    }else{
+        std::cout << "Студент не найден\n"; 
+    }
 }
