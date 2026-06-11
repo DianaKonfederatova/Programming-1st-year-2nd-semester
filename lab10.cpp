@@ -1,6 +1,13 @@
 #include <iostream>
 #include <cstring>
 
+struct Node {
+    char word[100];
+    Node* next = nullptr;
+}
+
+
+
 
 int main(){
 
@@ -49,6 +56,8 @@ int main(){
     }
     std::cout << "==================================\n";
 
+    Node* head = nullptr;
+    
     fclose(f);
     return 0;
 }
