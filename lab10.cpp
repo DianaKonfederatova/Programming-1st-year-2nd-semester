@@ -1,12 +1,30 @@
 #include <iostream>
+#include <cstdio>
 #include <cstring>
 
 struct Node {
     char word[100];
     Node* next = nullptr;
+};
+
+void addWord_List(Node*& head, char* word){
+    Node* newNode = new Node;
+    strcpy(newNode->word, word);
+    newNode -> next = nullptr;
+
+    if(head == nullptr){
+        head = newNode;
+        return;
+    }
+
+    Node* curr = head;
+    
+    while(curr -> next != nullptr){
+        curr = curr -> next;
+    }
+
+    curr -> next = newNode;
 }
-
-
 
 
 int main(){
@@ -41,7 +59,9 @@ int main(){
     std::cout << "===================\n";
 
     std::cout << "\n";
-    rewind(f); 
+    rewind(f);
+    Node* head = nullptr;  
+
     std::cout << "===РАЗБОР СТРОК ТЕКСТА НА СЛОВА===\n";
 
     while(fgets(line, 300, f) != NULL){
@@ -51,13 +71,21 @@ int main(){
         char* word = strtok(line, " \t\n");
         while (word != NULL){
             std::cout << word <<"\n";
+            addWord_List(head, word);
             word = strtok(NULL, " \t\n");
         }
     }
     std::cout << "==================================\n";
 
-    Node* head = nullptr;
     
+    std::cout << "\n=== СЛОВА В СПИСКЕ ===\n";
+    Node* curr = head;
+    while(curr != nullptr) {
+        std::cout << curr->word << "\n";
+        curr = curr->next;
+    }   
+    std::cout << "======================\n";
+
     fclose(f);
     return 0;
 }
