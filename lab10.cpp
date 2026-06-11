@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 
+
 int main(){
 
     FILE* f = fopen("file1.txt", "w");
@@ -16,6 +17,20 @@ int main(){
     fprintf(f, "БУ бу бу\n");
     fprintf(f, "Уауауауауа дыээээ\n");
 
+    fclose(f);
+
+    f = fopen("file1.txt", "r");
+
+    if(f == NULL){
+        std::cout << "Ошибка открытия файла!\n";
+        return 1;
+    }
+
+    char line[300];
+    std::cout << "Текст файла:\n" << "\n";
+    while(fgets(line, 300, f) != NULL){
+        std::cout << line;
+    }
 
     fclose(f);
     return 0;
