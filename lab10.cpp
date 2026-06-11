@@ -43,8 +43,37 @@ void addWord_List(Node*& head, char* word){
     curr -> next = newNode;
 }
 
+void sortWord(Node* head){
 
+    if(head == nullptr){
+        std::cout << "Список пуст!\n";
+        return;
+    }
 
+    int flag = 1;
+
+    while (flag == 1){
+        flag = 0;
+        Node* curr = head;
+        
+        while(curr -> next != nullptr){
+            Node* second = curr -> next;
+
+            if (strcmp(curr -> word, second -> word) > 0){
+                char temp[100];
+                strcpy(temp, curr->word);
+                strcpy(curr->word, second->word);
+                strcpy(second->word, temp);
+    
+                flag = 1;
+
+            }
+            curr = curr->next; 
+        }
+        
+    }
+
+}
 
 int main(){
 
@@ -71,11 +100,11 @@ int main(){
     }
 
     char line[300];
-    std::cout << "====ТЕКСТ ФАЙЛА====\n" << "\n";
+    std::cout << "====ТЕКСТ ФАЙЛА 1====\n" << "\n";
     while(fgets(line, 300, f) != NULL){
         std::cout << line;
     }
-    std::cout << "===================\n";
+    std::cout << "=====================\n";
 
     std::cout << "\n";
     rewind(f);
@@ -111,8 +140,39 @@ int main(){
     std::cout << "Количество слов в файле: "<< wordCount <<"\n";
     int count_in_List = wordCount_List(head);
     std::cout << "Количество слов в списке: "<< count_in_List <<"\n";
-
+    std::cout << "\n";
+    sortWord(head);
 
     fclose(f);
+
+    FILE* out = fopen("file2.txt", "w");
+    
+    if(out == NULL){
+        std::cout << "Ошибка создания файла!\n";
+        return -1;
+    }
+
+    Node* cur = head;
+    while(cur != nullptr){
+        fprintf(out, "%s\n", cur -> word);
+        cur = cur -> next;
+    }
+
+    fclose(out);
+
+    out = fopen("file2.txt", "r");
+
+    if(f == NULL){
+        std::cout << "Ошибка открытия файла!\n";
+        return 1;
+    }
+
+    std::cout << "====ТЕКСТ ФАЙЛА 2====\n" << "\n";
+    while(fgets(line, 300, f) != NULL){
+        std::cout << line;
+    }
+    std::cout << "=====================\n";
+    fclose(out);
+
     return 0;
 }
