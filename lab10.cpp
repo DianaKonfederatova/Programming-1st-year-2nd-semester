@@ -1,5 +1,5 @@
 #include <iostream>
-#include <string>
+#include <cstring>
 
 
 int main(){
@@ -27,10 +27,27 @@ int main(){
     }
 
     char line[300];
-    std::cout << "Текст файла:\n" << "\n";
+    std::cout << "====ТЕКСТ ФАЙЛА====\n" << "\n";
     while(fgets(line, 300, f) != NULL){
         std::cout << line;
     }
+    std::cout << "===================\n";
+
+    std::cout << "\n";
+    rewind(f); 
+    std::cout << "===РАЗБОР СТРОК ТЕКСТА НА СЛОВА===\n";
+
+    while(fgets(line, 300, f) != NULL){
+        std::cout << "\n";
+        std::cout << "Исходная строка: "<< line << "\n";
+
+        char* word = strtok(line, " \t\n");
+        while (word != NULL){
+            std::cout << word <<"\n";
+            word = strtok(NULL, " \t\n");
+        }
+    }
+    std::cout << "==================================\n";
 
     fclose(f);
     return 0;
