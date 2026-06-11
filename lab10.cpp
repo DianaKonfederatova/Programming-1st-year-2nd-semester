@@ -7,6 +7,23 @@ struct Node {
     Node* next = nullptr;
 };
 
+int wordCount_List(Node* head){
+    
+    if(head == nullptr){
+        return 0;
+    }
+
+    int count = 0;
+    Node* curr = head;
+
+    while(curr != nullptr){
+        count++;
+        curr = curr -> next;
+    }
+
+    return count;
+}
+
 void addWord_List(Node*& head, char* word){
     Node* newNode = new Node;
     strcpy(newNode->word, word);
@@ -25,6 +42,8 @@ void addWord_List(Node*& head, char* word){
 
     curr -> next = newNode;
 }
+
+
 
 
 int main(){
@@ -60,7 +79,9 @@ int main(){
 
     std::cout << "\n";
     rewind(f);
-    Node* head = nullptr;  
+    Node* head = nullptr; 
+    
+    int wordCount = 0;
 
     std::cout << "===РАЗБОР СТРОК ТЕКСТА НА СЛОВА===\n";
 
@@ -68,11 +89,12 @@ int main(){
         std::cout << "\n";
         std::cout << "Исходная строка: "<< line << "\n";
 
-        char* word = strtok(line, " \t\n");
+        char* word = strtok(line, " \t\n.,-!?:;");
         while (word != NULL){
             std::cout << word <<"\n";
+            wordCount++;
             addWord_List(head, word);
-            word = strtok(NULL, " \t\n");
+            word = strtok(NULL, " \t\n.,-!?:;");
         }
     }
     std::cout << "==================================\n";
@@ -85,6 +107,11 @@ int main(){
         curr = curr->next;
     }   
     std::cout << "======================\n";
+
+    std::cout << "Количество слов в файле: "<< wordCount <<"\n";
+    int count_in_List = wordCount_List(head);
+    std::cout << "Количество слов в списке: "<< count_in_List <<"\n";
+
 
     fclose(f);
     return 0;
