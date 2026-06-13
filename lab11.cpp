@@ -104,6 +104,51 @@ void changeGrades(){
     fclose(fp);
 }
 
+void deleteStudent(){
+    std::cout << "Избавление от студентов с неуспеваемостью:\n";
+    FILE *fp = fopen("students.dat", "rb");
+    FILE *out = fopen("t.dat", "wb");
+
+    if(fp == NULL){
+        std::cout << "Ошибка открытия файла!\n";
+        return;
+    }
+
+    if(out == NULL){
+        std::cout << "Ошибка создания файлв!\n";
+        fclose(fp);
+        return;
+    }
+
+    Student st;
+    int deleted_count = 0;
+
+    while(fread(&st, sizeof(Student), 1, fp) == 1){
+
+        bool fail = false;
+        for(int i = 0; i<4; i++){
+            if(st.grades[i] == 2 || st.grades[i] == 1){
+                fail = true;
+                break;
+            }
+        }
+
+        if(fail != true){
+            fwrite(&st, sizeof(Student), 1, out);
+        }else{
+            deleted_count++;
+            std::cout << "Удален студент: " << st.fio << "\n";
+        }
+
+    }
+
+    fclose(fp);
+    fclose(out);
+
+    remove("students.dat");
+    rename( "t.dat", "students.dat");
+}
+
 int main(){
 
     int choice;
@@ -138,7 +183,7 @@ int main(){
                 changeGrades();
                 break;
             case 4:
-                std::cout << "Доработка пункта";
+                deleteStudent();
                 break;
             case 5:
                 std::cout << "Доработка пункта";
