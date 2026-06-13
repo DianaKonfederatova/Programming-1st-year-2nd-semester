@@ -37,6 +37,29 @@ void createFile(){
     fclose(fp);
 }
 
+void viewFile(){
+    std::cout << "Просмотр файла:\n";
+    FILE *fp = fopen("students.dat", "rb");
+
+    if(fp == NULL){
+        std::cout << "Ошибка открытия файла для чтения!\n";
+        return;
+    }
+
+    Student st;
+    std::cout << "\n------ Список студентов ------\n";
+
+    while(fread(&st, sizeof(Student), 1, fp) == 1){
+        std::cout << "ФИО: " << st.fio << "\n";
+        std::cout << "Оценки: " << st.grades[0] << " " << st.grades[1] << " " 
+                  << st.grades[2] << " " << st.grades[3] << "\n";
+        std::cout << "Стипендия: " << st.scholarship << " руб.\n";
+        std::cout << "------------------------------\n";
+    }
+
+    fclose(fp);
+}
+
 int main(){
 
     int choice;
@@ -64,15 +87,20 @@ int main(){
             case 1:
                 createFile();
                 break;
-            case 2;
-
-            case 3;
-
-            case 4;
-
-            case 5;
-
-            case 0;
+            case 2:
+                viewFile();
+                break;
+            case 3:
+                std::cout << "Доработка пункта";
+                break;
+            case 4:
+                std::cout << "Доработка пункта";
+                break;
+            case 5:
+                std::cout << "Доработка пункта";
+                break;
+            case 0:
+                break;
         }
 
     } while(choice != 0);
