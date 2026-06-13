@@ -149,6 +149,90 @@ void deleteStudent(){
     rename( "t.dat", "students.dat");
 }
 
+void scholarshipStudent(){
+    std::cout << "Просмотр файла:\n";
+    FILE *fp = fopen("students.dat", "rb");
+
+    if(fp == NULL){
+        std::cout << "Ошибка открытия файла!\n";
+        return;
+    }
+
+    fseek(fp, 0, SEEK_END);
+    long file_size = ftell(fp);
+    rewind(fp);
+
+    int count = file_size / sizeof(Student);
+
+    if (count == 0) {
+        std::cout << "Файл пуст!\n";
+        fclose(fp);
+        return;
+    }
+
+    Student *arr = new Student[count];
+
+    fread(arr, sizeof(Student), count, fp);
+    fclose(fp);
+
+    for (int i = 0; i < count; i++) {
+        arr[i].fio[59] = '\0'; 
+    }
+
+    for (int i = 0; i < count; i++) {
+        bool bad_grade = false; // Есть ли 2 или 3
+        bool all_fives = true;      // Все ли оценки 5
+
+        for (int j = 0; j < 4; j++) {
+            if (arr[i].grades[j] < 4) {
+                bad_grade = true;
+            }
+            if (arr[i].grades[j] != 5) {
+                all_fives = false;
+            }
+        }
+
+        if (all_fives) {
+            arr[i].scholarship = 5000.0; // Повышенная
+        } else if (!bad_grade) {
+            arr[i].scholarship = 3000.0; // Обычная (только 4 и 5)
+        } else {
+            arr[i].scholarship = 0.0;    // Нет стипендии
+        }
+    }
+
+    for (int i = 0; i < count - 1; i++) {
+        for (int j = 0; j < count - i - 1; j++) {
+            if (strcmp(arr[j].fio, arr[j + 1].fio) > 0) {
+                Student temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+
+    FILE *file = fopen("scholship.txt", "w");
+    if (file == NULL) {
+        std::cout << "Ошибка создания текстового файла!\n";
+        delete[] arr; 
+        return;
+    }
+
+    fprintf(file, "%-35s | %-15s | %s\n", "ФИО Студента", "Оценки", "Стипендия");
+    fprintf(file, "-----------------------------------------------------------------------\n");
+
+    for (int i = 0; i < count; i++) {
+        fprintf(file, "%-35s | %d  %d  %d  %d   | %.2f руб.\n",
+                arr[i].fio,
+                arr[i].grades[0], arr[i].grades[1], arr[i].grades[2], arr[i].grades[3],
+                arr[i].scholarship);
+    }
+
+    fclose(file);    
+    delete[] arr;
+    std::cout << "Готово! Стипендиальная ведомость сохранена в файл 'scholship.txt'\n";
+}
+
 int main(){
 
     int choice;
@@ -186,7 +270,7 @@ int main(){
                 deleteStudent();
                 break;
             case 5:
-                std::cout << "Доработка пункта";
+                scholarshipStudent();
                 break;
             case 0:
                 break;
