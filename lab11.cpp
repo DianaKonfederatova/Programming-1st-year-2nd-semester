@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdio>
 #include <limits> 
+#include <cstring> 
 
 struct Student {
     char fio[60];
@@ -60,6 +61,49 @@ void viewFile(){
     fclose(fp);
 }
 
+void changeGrades(){
+    std::cout << "Исправление оценок:\n";
+    FILE *fp = fopen("students.dat", "r+b");
+
+    if(fp == NULL){
+        std::cout << "Ошибка открытия файла для перезаписи!\n";
+        return;
+    }
+
+    char target_fio[60];
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Очистка буфера!
+    std::cout << "Введите ФИО студента для изменения оценок: ";
+    std::cin.getline(target_fio, sizeof(target_fio));
+
+    Student st;
+    bool found = false; 
+
+    while(fread(&st, sizeof(Student), 1, fp) == 1){
+        
+        if (strcmp(st.fio, target_fio) == 0) {
+            found = true;
+            std::cout << "Студент найден! Текущие оценки: " 
+                      << st.grades[0] << " " << st.grades[1] << " " 
+                      << st.grades[2] << " " << st.grades[3] << "\n";
+
+        std::cout << "Введите 4 новые оценки через пробел: ";
+            for (int j = 0; j < 4; j++) {
+                std::cin >> st.grades[j];
+            }
+
+        fseek(fp, -sizeof(Student), SEEK_CUR);
+        fwrite(&st, sizeof(Student), 1, fp);
+        break;
+        }
+    }
+
+    if (!found) {
+        std::cout << "Студент с таким ФИО не найден в файле.\n";
+    }
+
+    fclose(fp);
+}
+
 int main(){
 
     int choice;
@@ -91,7 +135,7 @@ int main(){
                 viewFile();
                 break;
             case 3:
-                std::cout << "Доработка пункта";
+                changeGrades();
                 break;
             case 4:
                 std::cout << "Доработка пункта";
