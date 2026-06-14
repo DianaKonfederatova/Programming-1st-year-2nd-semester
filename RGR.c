@@ -54,10 +54,22 @@ void game(){
         printf("Введи 4 цифры слитно:\n");
         
         char input[10];
-        scanf("%4s", input);
+        scanf("%9s", input);
+
+        int in = 0;
+        for (int i = 0; i < 4; i++){
+            if (input[i] < '0' || input[i] > '9') {
+                in = 1;
+                break;
+            }
+        }
+
+        if (in == 1){
+            printf("!!!Ошибка: нужно вводить 4 цифры и не нужно вводить буквы/символы!!!\n");
+            continue;
+        }
 
         int number_gamer[4];
-        
         for (int i = 0; i < 4; i++){
             number_gamer[i] = input[i] - '0';
         }
