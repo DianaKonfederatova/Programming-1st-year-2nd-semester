@@ -1,13 +1,14 @@
 #include <iostream>
 #include <cstdlib>
+#include <ctime>
 using namespace std;
 
 int main(){
     srand(time(nullptr));
     int m;
-    int k;
-    int rows;
-    int last_rows_el;
+    int k;//ширина строки (сколько элементов в одной строке)
+    int rows;//количество строк
+    int last_rows_el;//количество элементов в последней строке
     cout << "\nВведите количество элементов массива А: ";
     cin >> m;
     cout << "\nВведите количество элементов в строке матрицы B, которое будет меньше количества элементов массива А: ";

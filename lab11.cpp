@@ -255,7 +255,6 @@ int main(){
             continue;
         }
 
-        
         switch (choice){
             case 1:
                 createFile();

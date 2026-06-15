@@ -2,7 +2,6 @@
 #include <cstdlib>
 #include <ctime>
 
-//g++ -std=c++11 -o lab4_1 lab4_1.cpp   -   команда компиляции
 
 int main(){
     srand(time(nullptr));
