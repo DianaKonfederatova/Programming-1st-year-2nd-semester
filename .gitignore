@@ -1,1 +1,25 @@
+# Объектные файлы
 *.o
+*.obj
+*.pch
+
+# Исполняемые файлы и библиотеки
+*.exe
+*.out
+*.app
+*.so
+*.dylib
+*.dll
+*.a
+*.lib
+
+# Папки сборки и настройки IDE
+build/
+bin/
+cmake-build-*/
+.idea/
+.vs/
+
+# Системный мусор
+.DS_Store
+Thumbs.db
