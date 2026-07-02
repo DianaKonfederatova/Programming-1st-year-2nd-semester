@@ -1,25 +1,14 @@
-# Объектные файлы
+# Compiled files
 *.o
-*.obj
-*.pch
-
-# Исполняемые файлы и библиотеки
 *.exe
 *.out
-*.app
-*.so
-*.dylib
-*.dll
-*.a
-*.lib
+*.obj
 
-# Папки сборки и настройки IDE
-build/
-bin/
-cmake-build-*/
-.idea/
-.vs/
-
-# Системный мусор
+# IDE and system
 .DS_Store
-Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# Compiled executable
+lab12/lab12
